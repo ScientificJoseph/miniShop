@@ -36,9 +36,9 @@ class ProductItem {
                 </div>
             </div>
         `;
-        const addCartButton = prodEl.querySelector('button');
-        addCartButton.addEventListener('click', this.addToCart.bind(this))
-        return prodEl;
+        const addCartButton = prodEl.querySelector('button'); // selects button from instance
+        addCartButton.addEventListener('click', this.addToCart.bind(this)) //bind(this) is added to tie button to instance
+        return prodEl; //returns prodEl to prodItem render call below
     }
 }
 
