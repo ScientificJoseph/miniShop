@@ -1,33 +1,33 @@
-class Product {
-    title = 'DEFAULT';
-    imageUrl;
-    description;
-    price;
+class Product { //template for building instance objects of Product class
+    // title = 'DEFAULT';
+    // imageUrl;
+    // description;
+    // price;
 
-    constructor(title, image, desc, price) { // accepts parameters and assigns to class fields
+    constructor(title, image, desc, price) { // accepts parameters, assigns to class fields, returns object
         this.title = title; // this refers to the oject being created. initializes objects values
-        this.imageUrl = image;
+        this.imageUrl = image; //defines properties for class
         this.description = desc;
         this.price = price
     }
 }
 
-
-const productList = {
-    products: [
-        new Product(//calls constructor passes parameters and returns a new object instance of Product Class
+class ProductList{
+    products = [ //default array property for future objects
+        new Product(//calls constructor passes parameters and receives a new object instance of Product Class
             'A Pillow',
             'http://tiny.cc/en48vz',
             'The Pillow Of Manifestation',
             19.99
         ), 
-        new Product(//calls constructor passes parameters and returns a new object instance of Product Class
+        new Product(//calls constructor passes parameters and receives a new object instance of Product Class
             'A Rug',
             'http://tiny.cc/co48vz',
             'Like Walking On A Cloud',
             89.99
         )
-    ],
+    ];
+    // constructor() {};
     render() {
         const renderHook = document.getElementById('app'); // app Hppk
         const prodList = document.createElement('ul'); // ul to append to app Hook
@@ -50,6 +50,8 @@ const productList = {
         }
         renderHook.append(prodList); // appends ul to app Hook 
     }
-};
+}
 
-productList.render() // calls method for rendering the products to web page
+
+const productList = new ProductList();
+productList.render()
