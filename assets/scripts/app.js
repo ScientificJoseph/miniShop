@@ -56,7 +56,7 @@ class ProductList{
         const prodList = document.createElement('ul'); // ul to append to app Hook
         prodList.className = 'product-list';
         for (const prod of this.products) { //iterates through products array and stors objects to prod
-            const productItem = new ProductItem(prod) //calls and passed ProductList Obhects to ProductItem Class. creates new object
+            const productItem = new ProductItem(prod)//calls and passes ProductList Objects to ProductItem Class to create new object
             const prodEl = productItem.render() // calls render method in newly created productItem object. Store in prodEl-li
             prodList.append(prodEl); // appends li to ul
         }
