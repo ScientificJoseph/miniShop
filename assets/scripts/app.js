@@ -105,6 +105,8 @@ class Shop {
 }
 
 class App {
+    static cart; //refered to by this.cart
+
     static init() {
         const shop = new Shop(); // creates instance of Shop
         shop.render(); //calls render method in the the new instamce of Shop (shop)
