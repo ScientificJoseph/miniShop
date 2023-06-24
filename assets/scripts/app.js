@@ -3,25 +3,30 @@ class Product {
     imageUrl;
     description;
     price;
+
+    constructor(title, image, desc, price) { // accepts parameters and assigns to class fields
+        this.title = title; // this refers to the oject being created. initializes objects values
+        this.imageUrl = image;
+        this.description = desc;
+        this.price = price
+    }
 }
 
-console.log(new Product())
 
 const productList = {
     products: [
-        // new Product() // cals constructor and returns new product object
-        {
-            title: 'A Pillow',
-            imageUrl: 'http://tiny.cc/en48vz',
-            price: 19.99,
-            description: 'The Pillow Of Manifestation'
-        },
-        {
-            title: 'A Rug',
-            imageUrl: 'http://tiny.cc/co48vz',
-            price: 89.99,
-            description: 'Like Walking On A Cloud'
-        }
+        new Product( //calls constructor and returns new object instance of Product Class
+            'A Pillow',
+            'http://tiny.cc/en48vz',
+            'The Pillow Of Manifestation',
+            19.99
+        ), 
+        new Product(
+            'A Rug',
+            'http://tiny.cc/co48vz',
+            'Like Walking On A Cloud',
+            89.99
+        )
     ],
     render() {
         const renderHook = document.getElementById('app'); // app Hppk
