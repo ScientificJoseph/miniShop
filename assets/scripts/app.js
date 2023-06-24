@@ -15,13 +15,13 @@ class Product {
 
 const productList = {
     products: [
-        new Product( //calls constructor and returns new object instance of Product Class
+        new Product(//calls constructor passes parameters and returns a new object instance of Product Class
             'A Pillow',
             'http://tiny.cc/en48vz',
             'The Pillow Of Manifestation',
             19.99
         ), 
-        new Product(
+        new Product(//calls constructor passes parameters and returns a new object instance of Product Class
             'A Rug',
             'http://tiny.cc/co48vz',
             'Like Walking On A Cloud',
