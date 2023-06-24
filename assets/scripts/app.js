@@ -53,5 +53,5 @@ class ProductList{
 }
 
 
-const productList = new ProductList();
-productList.render()
+const productList = new ProductList(); // calls ProductList Class and recievs new instance objscts
+productList.render() //calls render method in the new productList intance of ProductList 
