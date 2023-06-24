@@ -12,6 +12,29 @@ class Product { //template for building instance objects of Product class
     }
 }
 
+class ProductItem {
+    constructor(product) { // parameter to recieves ProductList instance objects
+        this.product = product; //adds new product property to store ProductList instances
+    }
+
+    render() {
+        const prodEl = document.createElement('li');
+        prodEl.className = 'product-item';
+        prodEl.innerHTML = `
+            <div>
+                <img src='${this.product.imageUrl}' alt='${this.product.title}'>
+                <div class='product-item__content'>
+                    <h2>${this.product.title}</h2>
+                    <h3>\$${this.product.price}</h3>
+                    <p>${this.product.description}</p>
+                    <button>Add To Cart</button>
+                </div>
+            </div>
+        `;
+        return prodEl;
+    }
+}
+
 class ProductList{
     products = [ //default array property for future objects
         new Product(//calls constructor passes parameters and receives a new object instance of Product Class
@@ -33,19 +56,8 @@ class ProductList{
         const prodList = document.createElement('ul'); // ul to append to app Hook
         prodList.className = 'product-list';
         for (const prod of this.products) { //iterates through products array and stors objects to prod
-            const prodEl = document.createElement('li');
-            prodEl.className = 'product-item';
-            prodEl.innerHTML = `
-                <div>
-                    <img src='${prod.imageUrl}' alt='${prod.title}'>
-                    <div class='product-item__content'>
-                        <h2>${prod.title}</h2>
-                        <h3>\$${prod.price}</h3>
-                        <p>${prod.description}</p>
-                        <button>Add To Cart</button>
-                    </div>
-                </div>
-            `;
+            const productItem = new ProductItem(prod) //calls and passed ProductList Obhects to ProductItem Class. creates new object
+            const prodEl = productItem.render() // calls render method in newly created productItem object. Store in prodEl-li
             prodList.append(prodEl); // appends li to ul
         }
         renderHook.append(prodList); // appends ul to app Hook 
