@@ -12,6 +12,20 @@ class Product { //template for building instance objects of Product class
     }
 }
 
+class ShoppingCart { //template for product Cart
+    items = []; 
+
+    render() {
+       const cartEl = document.createElement('section') 
+       cartEl.innerHTML = `
+            <h2>Total: \$${0}</h2>
+            <button>Order Now!</button>
+       `;
+       cartEl.className = 'cart'
+       return cartEl;
+    }   
+}
+
 class ProductItem {
     constructor(product) { // parameter to recieves ProductList instance objects
         this.product = product; //adds new product property to store ProductList instances
@@ -43,7 +57,7 @@ class ProductItem {
 }
 
 class ProductList{
-    products = [ //default array property for future objects
+    products = [ //default array property for storing future objects
         new Product(//calls constructor passes parameters and receives a new object instance of Product Class
             'A Pillow',
             'http://tiny.cc/en48vz',
@@ -59,7 +73,7 @@ class ProductList{
     ];
     // constructor() {};
     render() {
-        const renderHook = document.getElementById('app'); // app Hppk
+        
         const prodList = document.createElement('ul'); // ul to append to app Hook
         prodList.className = 'product-list';
         for (const prod of this.products) { //iterates through products array and stors objects to prod
@@ -67,10 +81,22 @@ class ProductList{
             const prodEl = productItem.render() // calls render method in newly created productItem object. Store in prodEl-li
             prodList.append(prodEl); // appends li to ul
         }
-        renderHook.append(prodList); // appends ul to app Hook 
+        return prodList
     }
 }
 
+class Shop {
+    render() {
+        const renderHook = document.getElementById('app'); // app Hook where code will be rendered 
+        const cart = new ShoppingCart(); //calls shopping cart and recievs new instance
+        const cartEl = cart.render()//calls render method in the new cart instance of ShoppingCart
+        const productList = new ProductList(); // calls ProductList Class and recievs new instance objscts
+        const prodListEl = productList.render() //calls render method in the new productList intance of ProductList 
 
-const productList = new ProductList(); // calls ProductList Class and recievs new instance objscts
-productList.render() //calls render method in the new productList intance of ProductList 
+        renderHook.append(cartEl)//appends cart to app Hok
+        renderHook.append(prodListEl); // appends ul to app Hook 
+    }
+}
+
+const shop = new Shop()
+shop.render()
