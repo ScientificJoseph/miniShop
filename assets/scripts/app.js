@@ -1,5 +1,15 @@
+class Product {
+    title = 'DEFAULT';
+    imageUrl;
+    description;
+    price;
+}
+
+console.log(new Product())
+
 const productList = {
     products: [
+        // new Product() // cals constructor and returns new product object
         {
             title: 'A Pillow',
             imageUrl: 'http://tiny.cc/en48vz',
@@ -14,10 +24,10 @@ const productList = {
         }
     ],
     render() {
-        const renderHook = document.getElementById('app');
-        const prodList = document.createElement('ul');
+        const renderHook = document.getElementById('app'); // app Hppk
+        const prodList = document.createElement('ul'); // ul to append to app Hook
         prodList.className = 'product-list';
-        for (const prod of this.products) {
+        for (const prod of this.products) { //iterates through products array and stors objects to prod
             const prodEl = document.createElement('li');
             prodEl.className = 'product-item';
             prodEl.innerHTML = `
@@ -31,10 +41,10 @@ const productList = {
                     </div>
                 </div>
             `;
-            prodList.append(prodEl)
+            prodList.append(prodEl); // appends li to ul
         }
-        renderHook.append(prodList);
+        renderHook.append(prodList); // appends ul to app Hook 
     }
 };
 
-productList.render()
+productList.render() // calls method for rendering the products to web page
