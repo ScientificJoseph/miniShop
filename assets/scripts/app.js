@@ -95,10 +95,10 @@ class Shop {
     render() {
         const renderHook = document.getElementById('app'); // app Hook where code will be rendered 
 
-        this.cart = new ShoppingCart(); //stors reference to property & calls ShoppingCart and recievs new instance
+        this.cart = new ShoppingCart(); //creates instance of ShoppingCart
         const cartEl = this.cart.render();//calls render method in the new cart instance of ShoppingCart
-        const productList = new ProductList(); // calls ProductList Class and recievs new instance objscts
-        const prodListEl = productList.render() //calls render method in the new productList intance of ProductList 
+        const productList = new ProductList(); // calls and creates instance of ProductList and receivs props and methods
+        const prodListEl = productList.render() //calls render() in the new productList intance of ProductList 
 
         renderHook.append(cartEl)//appends cart to app Hook
         renderHook.append(prodListEl); // appends ul to app Hook 
@@ -109,12 +109,12 @@ class App {
     static cart; //refered to by this.cart below
 
     static init() {
-        const shop = new Shop(); // creates instance of Shop
+        const shop = new Shop();//instance of Shop who's props and methods can be shared among all objects created from the same class
         shop.render(); //calls render method in the the new instamce of Shop (shop)
-        this.cart = shop.cart //refers to new shop object property ShoppingCart which provides access to method addProduct
+        this.cart = shop.cart //refers to new App object property shop which provides access to addProduct() in ShoppingCart
     }
 
-    static addProductToCart(product) { // receives product from call of event listener in ProducItem addToCart()
+    static addProductToCart(product) { //static method receives product from call of event listener in ProducItem addToCart()
         this.cart.addProduct(product)//calls addProduct method from this.cart and passes product to addProduct method in ShoppingCart
     }
 }
