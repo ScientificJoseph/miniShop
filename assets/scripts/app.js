@@ -16,12 +16,12 @@ class ShoppingCart { //template for product Cart
     items = []; //receives prod from addProduct
 
     set cartItems(value) { // received from addProduct() below
-        this.items = value; //overwrites items array
-        this.totalOutput.innerHTML = `<h2>Total: \$${this.totalAmount.toFixed(2)}</h2>`; //received from totalAmount()
+        this.items = value; //overwrites items array with values from updatedItems below
+        this.totalOutput.innerHTML = `<h2>Total: \$${this.totalAmount.toFixed(2)}</h2>`; //calls totalAmount() to get total amount
     }
 
     get totalAmount() {
-        const sum = this.items.reduce((prevVal, curItem) => {
+        const sum = this.items.reduce((prevVal, curItem) => { //iterates through array
             return prevVal + curItem.price
         },0);
         return sum;
@@ -30,7 +30,7 @@ class ShoppingCart { //template for product Cart
     addProduct(product) { // called from App where prod is received from
         const updatedItems = [...this.items];
         updatedItems.push(product)
-        this.cartItems = updatedItems
+        this.cartItems = updatedItems;
     }
 
     render() {
