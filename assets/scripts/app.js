@@ -15,7 +15,7 @@ class Product { //template for building instance objects of Product class
 class ShoppingCart { //template for product Cart
     items = []; //receives prod from addProduct
 
-    set cartItems(value) { // received from addProduct() below
+    set cartItems(value) { // used to set cart new cart total. receives prod from addProduct() below
         this.items = value; //overwrites items array with values from updatedItems below
         this.totalOutput.innerHTML = `<h2>Total: \$${this.totalAmount.toFixed(2)}</h2>`; //calls totalAmount() to get total amount
     }
@@ -30,7 +30,7 @@ class ShoppingCart { //template for product Cart
     addProduct(product) { // called from App where prod is received from
         const updatedItems = [...this.items];
         updatedItems.push(product)
-        this.cartItems = updatedItems;
+        this.cartItems = updatedItems; //triggers the setter & passes updatedItems to cartItems
     }
 
     render() {
