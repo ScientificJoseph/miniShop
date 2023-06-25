@@ -39,7 +39,7 @@ class ProductItem {
     }
 
     addToCart() { // called from eventListener click event
-        App.addProductToCart(this.product)//calls addProductToCart() in App where addProduct() is called & receives prod instances 
+        App.addProductToCart(this.product)//calls static addProductToCart() in App where addProduct() is called & receives prod instances 
     }
 
     render() {
