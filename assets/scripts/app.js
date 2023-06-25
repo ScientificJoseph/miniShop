@@ -14,8 +14,9 @@ class Product { //template for building instance objects of Product class
 
 class ShoppingCart { //template for product Cart
     items = []; 
-    addProduct(product) {
+    addProduct(product) { // called from App where prod is received from
         this.items.push(product)
+        console.log(product)
         this.totalOutput.innerHTML = `<h2>Total: \$${1}</h2>`;
         console.log(this.items)
     }
@@ -37,8 +38,8 @@ class ProductItem {
         this.product = product; //adds new product property to store ProductList instances
     }
 
-    addToCart() {
-        App.addProductToCart(this.product) //calls addProductToCart, passes productList instances and exe addProduct
+    addToCart() { // called from eventListener click event
+        App.addProductToCart(this.product)//calls addProductToCart() in App where addProduct() is called & receives prod instances 
     }
 
     render() {
@@ -99,22 +100,21 @@ class Shop {
         const productList = new ProductList(); // calls ProductList Class and recievs new instance objscts
         const prodListEl = productList.render() //calls render method in the new productList intance of ProductList 
 
-        renderHook.append(cartEl)//appends cart to app Hok
+        renderHook.append(cartEl)//appends cart to app Hook
         renderHook.append(prodListEl); // appends ul to app Hook 
     }
 }
 
 class App {
-    static cart; //refered to by this.cart
+    static cart; //refered to by this.cart below
 
     static init() {
         const shop = new Shop(); // creates instance of Shop
         shop.render(); //calls render method in the the new instamce of Shop (shop)
         this.cart = shop.cart //refers to new shop object property ShoppingCart which provides access to method addProduct
-    
     }
 
-    static addProductToCart(product) { // receives products from call
+    static addProductToCart(product) { // receives product from call of event listener in ProducItem addToCart()
         this.cart.addProduct(product)//calls addProduct method from this.cart and passes product to addProduct method in ShoppingCart
     }
 }
