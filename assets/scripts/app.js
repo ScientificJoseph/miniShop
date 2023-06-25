@@ -13,12 +13,24 @@ class Product { //template for building instance objects of Product class
 }
 
 class ShoppingCart { //template for product Cart
-    items = []; 
+    items = []; //receives prod from addProduct
+
+    set cartItems(value) { // received from addProduct() below
+        this.items = value; //overwrites items array
+        this.totalOutput.innerHTML = `<h2>Total: \$${this.totalAmount.toFixed(2)}</h2>`; //received from totalAmount()
+    }
+
+    get totalAmount() {
+        const sum = this.items.reduce((prevVal, curItem) => {
+            return prevVal + curItem.price
+        },0);
+        return sum;
+    }
+
     addProduct(product) { // called from App where prod is received from
-        this.items.push(product)
-        console.log(product)
-        this.totalOutput.innerHTML = `<h2>Total: \$${1}</h2>`;
-        console.log(this.items)
+        const updatedItems = [...this.items];
+        updatedItems.push(product)
+        this.cartItems = updatedItems
     }
 
     render() {
