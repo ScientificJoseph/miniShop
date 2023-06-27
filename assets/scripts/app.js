@@ -55,8 +55,8 @@ class ShoppingCart extends Component { //template for product Cart
         return sum;
     }
 
-    constructor(renderHookId) { // calls the parent (Component)
-        super(renderHookId)
+    constructor(renderHookId) { // Gets called by ShopingCart instantiation. Receives hook.
+        super(renderHookId) // passes hook to Component constructor.
     }
 
     addProduct(product) { // called from App where prod is received from
