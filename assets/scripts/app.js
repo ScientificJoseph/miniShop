@@ -20,22 +20,22 @@ class ElementAttribute {
 }
 
 class Component {
-    constructor(renderHookId) {
-        this.hookId = renderHookId;
+    constructor(renderHookId) { // hook received from super constructor
+        this.hookId = renderHookId; // assigned the hookId to the object element in the context of this
     }
 
-    craterRootElement(tag, cssClasses, attributes) {
-        const rootElement = document.createElement(tag);
+    craterRootElement(tag, cssClasses, attributes) { // receives pearameters 
+        const rootElement = document.createElement(tag); 
         console.log(attributes)
-        if(cssClasses) {
-            rootElement.className = cssClasses;
+        if(cssClasses) { 
+            rootElement.className = cssClasses; // applies classes if applicable
         }
         if(attributes && attributes.length > 0){
             for (const attr of attributes) {
-                rootElement.setAttribute(attr.name, attr.value)
+                rootElement.setAttribute(attr.name, attr.value) // applies key value pairs to objects
             }
         }
-        document.getElementById(this.hookId).append(rootElement)
+        document.getElementById(this.hookId).append(rootElement) // appends tag to repected hook
         return rootElement;
     }
 }
@@ -138,7 +138,7 @@ class Shop {
     render() {
         const renderHook = document.getElementById('app'); // app Hook where code will be rendered 
 
-        this.cart = new ShoppingCart('app'); //creates instance of ShoppingCart
+        this.cart = new ShoppingCart('app'); //creates instance of ShoppingCart. Passes app hook to super constuctor 
         this.cart.render();//calls render method in the new cart instance of ShoppingCart
         const productList = new ProductList(); // calls and creates instance of ProductList and receivs props and methods
         const prodListEl = productList.render() //calls render() in the new productList intance of ProductList 
