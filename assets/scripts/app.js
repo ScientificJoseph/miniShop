@@ -12,7 +12,35 @@ class Product { //template for building instance objects of Product class
     }
 }
 
-class ShoppingCart { //template for product Cart
+class ElementAttribute {
+    constructor(attrName, attrValue) {
+        this.name = attrName;
+        this.value = attrValue;
+    }
+}
+
+class Component {
+    constructor(renderHookId) {
+        this.hookId = renderHookId;
+    }
+
+    craterRootElement(tag, cssClasses, attributes) {
+        const rootElement = document.createElement(tag);
+        console.log(attributes)
+        if(cssClasses) {
+            rootElement.className = cssClasses;
+        }
+        if(attributes && attributes.length > 0){
+            for (const attr of attributes) {
+                rootElement.setAttribute(attr.name, attr.value)
+            }
+        }
+        document.getElementById(this.hookId).append(rootElement)
+        return rootElement;
+    }
+}
+
+class ShoppingCart extends Component { //template for product Cart
     items = []; //receives prod from addProduct
 
     set cartItems(value) { // used to set cart new cart total. receives prod from addProduct() below
@@ -27,6 +55,10 @@ class ShoppingCart { //template for product Cart
         return sum;
     }
 
+    constructor(renderHookId) { // calls the parent (Component)
+        super(renderHookId)
+    }
+
     addProduct(product) { // called from App where prod is received from
         const updatedItems = [...this.items];
         updatedItems.push(product)
@@ -34,14 +66,13 @@ class ShoppingCart { //template for product Cart
     }
 
     render() {
-       const cartEl = document.createElement('section') 
+       const cartEl = this.craterRootElement('section', 'cart')
        cartEl.innerHTML = `
             <h2>Total: \$${0}</h2>
             <button>Order Now!</button>
        `;
-       cartEl.className = 'cart';
+       
        this.totalOutput = cartEl.querySelector('h2') //
-       return cartEl;
     }   
 }
 
@@ -107,12 +138,11 @@ class Shop {
     render() {
         const renderHook = document.getElementById('app'); // app Hook where code will be rendered 
 
-        this.cart = new ShoppingCart(); //creates instance of ShoppingCart
-        const cartEl = this.cart.render();//calls render method in the new cart instance of ShoppingCart
+        this.cart = new ShoppingCart('app'); //creates instance of ShoppingCart
+        this.cart.render();//calls render method in the new cart instance of ShoppingCart
         const productList = new ProductList(); // calls and creates instance of ProductList and receivs props and methods
         const prodListEl = productList.render() //calls render() in the new productList intance of ProductList 
 
-        renderHook.append(cartEl)//appends cart to app Hook
         renderHook.append(prodListEl); // appends ul to app Hook 
     }
 }
