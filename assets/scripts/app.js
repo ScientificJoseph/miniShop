@@ -26,19 +26,19 @@ class Component {
 
     craterRootElement(tag, cssClasses, attributes) { // receives pearameters 
         const rootElement = document.createElement(tag); 
-        // console.log(rootElement)
-        console.log(attributes)
+        // console.log('rootElement',rootElement)
+        // console.log('attributes',attributes)
         if(cssClasses) { 
             rootElement.className = cssClasses; // applies classes if applicable
         }
         if(attributes && attributes.length > 0){
             for (const attr of attributes) {
-               
-                rootElement.setAttribute(attr.name, attr.value) // applies key value pairs to objects
+            //    console.log('attr',attr)
+                rootElement.setAttribute(attr.name, attr.value) // sets attributes 
             }
         }
-        document.getElementById(this.hookId).append(rootElement) // appends tag to repected hook
-        // console.log(this.hookId)
+        document.getElementById(this.hookId).append(rootElement) // appends 
+        // console.log('this id',this.hookId)
         return rootElement;
     }
 }
@@ -60,6 +60,7 @@ class ShoppingCart extends Component { //template for product Cart
 
     constructor(renderHookId) { // Gets called by ShopingCart instantiation. Receives hook.
         super(renderHookId) // passes hook to Component constructor.
+        console.log('SCS', renderHookId)
     }
 
     addProduct(product) { // called from App where prod is received from
@@ -81,7 +82,8 @@ class ShoppingCart extends Component { //template for product Cart
 
 class ProductItem  extends Component{
     constructor(product, renderHookId) { // parameter to recieves ProductList (prod) instance objects
-        super(renderHookId)
+        super(renderHookId)// paasses prod-list to Component for li elements to append to
+        console.log('PIS', renderHookId) 
         this.product = product; //adds new product property to store ProductList instances
     }
 
@@ -90,7 +92,8 @@ class ProductItem  extends Component{
     }
 
     render() {
-        const prodEl = this.craterRootElement('li', 'product-item');
+        const prodEl = this.craterRootElement('li', 'product-item'); // passes li and class to constructor
+        // console.log('prodEl',prodEl)
         prodEl.innerHTML = `
             <div>
                 <img src='${this.product.imageUrl}' alt='${this.product.title}'>
@@ -123,16 +126,16 @@ class ProductList extends Component{
         )
     ];
     constructor(renderHookId) {
-        super(renderHookId)
-        // console.log(renderHookId)
+        super(renderHookId) //renders to app
+        console.log('PLS',renderHookId) //app
     };
     render() {
         
-        this.craterRootElement('ul', 'product-list',[new ElementAttribute('id', 'prod-list')]); // ul to append to app Hook
+        this.craterRootElement('ul', 'product-list',[new ElementAttribute('id', 'prod-list')]); //used to create ul, give it a class and id to append to
         for (const prod of this.products) { //iterates through products array and stors objects to prod
-            const productItem = new ProductItem(prod, 'prod-list')//calls & passes ProductList Objects (prod)to ProductItem Class to create new object
+            const productItem = new ProductItem(prod, 'prod-list')//calls & passes products objects (prod) to ProductItem Class to create new objects & recieves id to render to
             productItem.render() // calls render method in newly created productItem object. Store in prodEl-li
-            console.log(productItem)
+            // console.log(productItem)
         }
     }
 }
