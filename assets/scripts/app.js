@@ -26,16 +26,19 @@ class Component {
 
     craterRootElement(tag, cssClasses, attributes) { // receives pearameters 
         const rootElement = document.createElement(tag); 
+        // console.log(rootElement)
         console.log(attributes)
         if(cssClasses) { 
             rootElement.className = cssClasses; // applies classes if applicable
         }
         if(attributes && attributes.length > 0){
             for (const attr of attributes) {
+               
                 rootElement.setAttribute(attr.name, attr.value) // applies key value pairs to objects
             }
         }
         document.getElementById(this.hookId).append(rootElement) // appends tag to repected hook
+        // console.log(this.hookId)
         return rootElement;
     }
 }
@@ -76,8 +79,9 @@ class ShoppingCart extends Component { //template for product Cart
     }   
 }
 
-class ProductItem {
-    constructor(product) { // parameter to recieves ProductList (prod) instance objects
+class ProductItem  extends Component{
+    constructor(product, renderHookId) { // parameter to recieves ProductList (prod) instance objects
+        super(renderHookId)
         this.product = product; //adds new product property to store ProductList instances
     }
 
@@ -86,8 +90,7 @@ class ProductItem {
     }
 
     render() {
-        const prodEl = document.createElement('li');
-        prodEl.className = 'product-item';
+        const prodEl = this.craterRootElement('li', 'product-item');
         prodEl.innerHTML = `
             <div>
                 <img src='${this.product.imageUrl}' alt='${this.product.title}'>
@@ -101,11 +104,10 @@ class ProductItem {
         `;
         const addCartButton = prodEl.querySelector('button'); // selects button from instance
         addCartButton.addEventListener('click', this.addToCart.bind(this)) //bind(this) is added to tie button to instance
-        return prodEl; //returns prodEl to prodItem render call below
     }
 }
 
-class ProductList{
+class ProductList extends Component{
     products = [ //default array property for storing future objects
         new Product(//calls constructor passes parameters and receives a new object instance of Product Class
             'A Pillow',
@@ -120,30 +122,28 @@ class ProductList{
             89.99
         )
     ];
-    // constructor() {};
+    constructor(renderHookId) {
+        super(renderHookId)
+        // console.log(renderHookId)
+    };
     render() {
         
-        const prodList = document.createElement('ul'); // ul to append to app Hook
-        prodList.className = 'product-list';
+        this.craterRootElement('ul', 'product-list',[new ElementAttribute('id', 'prod-list')]); // ul to append to app Hook
         for (const prod of this.products) { //iterates through products array and stors objects to prod
-            const productItem = new ProductItem(prod)//calls & passes ProductList Objects (prod)to ProductItem Class to create new object
-            const prodEl = productItem.render() // calls render method in newly created productItem object. Store in prodEl-li
-            prodList.append(prodEl); // appends li to ul
+            const productItem = new ProductItem(prod, 'prod-list')//calls & passes ProductList Objects (prod)to ProductItem Class to create new object
+            productItem.render() // calls render method in newly created productItem object. Store in prodEl-li
+            console.log(productItem)
         }
-        return prodList
     }
 }
 
 class Shop {
     render() {
-        const renderHook = document.getElementById('app'); // app Hook where code will be rendered 
 
         this.cart = new ShoppingCart('app'); //creates instance of ShoppingCart. Passes app hook to super constuctor 
         this.cart.render();//calls render method in the new cart instance of ShoppingCart
-        const productList = new ProductList(); // calls and creates instance of ProductList and receivs props and methods
-        const prodListEl = productList.render() //calls render() in the new productList intance of ProductList 
-
-        renderHook.append(prodListEl); // appends ul to app Hook 
+        const productList = new ProductList('app'); // calls and creates instance of ProductList and receivs props and methods
+        productList.render() //calls render() in the new productList intance of ProductList 
     }
 }
 
