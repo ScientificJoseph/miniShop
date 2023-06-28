@@ -20,8 +20,8 @@ class ElementAttribute {
 }
 
 class Component {
-    constructor(renderHookId) { // hook received from super constructor
-        this.hookId = renderHookId; // assigned the hookId to the object element in the context of this
+    constructor(renderHookId) { // hook received from super constructord
+        this.hookId = renderHookId; // provides created elemts the hookid to append to
     }
 
     craterRootElement(tag, cssClasses, attributes) { // receives pearameters 
@@ -34,10 +34,10 @@ class Component {
         if(attributes && attributes.length > 0){
             for (const attr of attributes) {
             //    console.log('attr',attr)
-                rootElement.setAttribute(attr.name, attr.value) // sets attributes 
+                rootElement.setAttribute(attr.name, attr.value) // sets id 0attribute for ul that li uses to append to
             }
         }
-        document.getElementById(this.hookId).append(rootElement) // appends 
+        document.getElementById(this.hookId).append(rootElement) // newly created elemet elements get appended to the hook elements id
         // console.log('this id',this.hookId)
         return rootElement;
     }
@@ -58,8 +58,8 @@ class ShoppingCart extends Component { //template for product Cart
         return sum;
     }
 
-    constructor(renderHookId) { // Gets called by ShopingCart instantiation. Receives hook.
-        super(renderHookId) // passes hook to Component constructor.
+    constructor(renderHookId) { // Gets called by ShopingCart instantiation. Receives app hook from ShoppingCart instantiayion.
+        super(renderHookId) // passes app hook to Component constructor.
         console.log('SCS', renderHookId)
     }
 
@@ -81,8 +81,8 @@ class ShoppingCart extends Component { //template for product Cart
 }
 
 class ProductItem  extends Component{
-    constructor(product, renderHookId) { // parameter to recieves ProductList (prod) instance objects
-        super(renderHookId)// paasses prod-list to Component for li elements to append to
+    constructor(product, renderHookId) { // parameter to recieves ProductList (prod) instance objects. Receives hook id prod-list on Product item instantiation
+        super(renderHookId)// paasses prod-list to Component constuctor
         console.log('PIS', renderHookId) 
         this.product = product; //adds new product property to store ProductList instances
     }
@@ -125,8 +125,8 @@ class ProductList extends Component{
             89.99
         )
     ];
-    constructor(renderHookId) {
-        super(renderHookId) //renders to app
+    constructor(renderHookId) { // receives hook id app Class instantiation
+        super(renderHookId) //Passes hook id app to Component Constructor
         console.log('PLS',renderHookId) //app
     };
     render() {
