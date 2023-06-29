@@ -44,10 +44,11 @@ class Component {
 }
 
 class ShoppingCart extends Component { //template for product Cart
-    items = []; //receives prod from addProduct
+    items = []; //receives objects from cartItems 
 
     set cartItems(value) { // used to set cart new cart total. receives prod from addProduct() below
         this.items = value; //overwrites items array with values from updatedItems below
+        console.log(this.items)
         this.totalOutput.innerHTML = `<h2>Total: \$${this.totalAmount.toFixed(2)}</h2>`; //calls totalAmount() to get total amount
     }
 
@@ -61,11 +62,12 @@ class ShoppingCart extends Component { //template for product Cart
     constructor(renderHookId) { // Gets called by ShopingCart instantiation. Receives app hook from ShoppingCart instantiation.
         super(renderHookId) // passes app hook to Component constructor.
         console.log('SCS', renderHookId)
+
     }
 
     addProduct(product) { // called from App where prod is received from
-        const updatedItems = [...this.items];
-        updatedItems.push(product)
+        const updatedItems = [...this.items]; //copies item array with spread operator
+        updatedItems.push(product) // pushes producte to updatedItems
         this.cartItems = updatedItems; //triggers the setter & passes updatedItems to cartItems
     }
 
