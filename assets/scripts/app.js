@@ -12,7 +12,7 @@ class Product { //template for building instance objects of Product class
     }
 }
 
-class ElementAttribute {
+class ElementAttribute { // Used to assign name (id) and value (prod-list) to ul for list items to append to
     constructor(attrName, attrValue) {
         this.name = attrName;
         this.value = attrValue;
@@ -25,7 +25,7 @@ class Component {
     }
 
     craterRootElement(tag, cssClasses, attributes) { // receives pearameters 
-        const rootElement = document.createElement(tag); 
+        const rootElement = document.createElement(tag); //creates the elements that hold the content of the web page
         // console.log('rootElement',rootElement)
         // console.log('attributes',attributes)
         if(cssClasses) { 
@@ -34,7 +34,7 @@ class Component {
         if(attributes && attributes.length > 0){
             for (const attr of attributes) {
             //    console.log('attr',attr)
-                rootElement.setAttribute(attr.name, attr.value) // sets id 0attribute for ul that li uses to append to
+                rootElement.setAttribute(attr.name, attr.value) // sets id 0ttribute for ul that li uses to append to
             }
         }
         document.getElementById(this.hookId).append(rootElement) // newly created elemet elements get appended to the hook elements id
@@ -51,14 +51,14 @@ class ShoppingCart extends Component { //template for product Cart
         this.totalOutput.innerHTML = `<h2>Total: \$${this.totalAmount.toFixed(2)}</h2>`; //calls totalAmount() to get total amount
     }
 
-    get totalAmount() {
+    get totalAmount() { //used to calculate the value of the items in the cart
         const sum = this.items.reduce((prevVal, curItem) => { //iterates through array
             return prevVal + curItem.price
         },0);
         return sum;
     }
 
-    constructor(renderHookId) { // Gets called by ShopingCart instantiation. Receives app hook from ShoppingCart instantiayion.
+    constructor(renderHookId) { // Gets called by ShopingCart instantiation. Receives app hook from ShoppingCart instantiation.
         super(renderHookId) // passes app hook to Component constructor.
         console.log('SCS', renderHookId)
     }
