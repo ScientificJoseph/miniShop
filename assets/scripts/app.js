@@ -20,7 +20,7 @@ class ElementAttribute { // Used to assign name (id) and value (prod-list) to ul
 }
 
 class Component {
-    constructor(renderHookId) { // hook received from super constructord
+    constructor(renderHookId) { // hook received from super constructor
         this.hookId = renderHookId; // provides created elemts the hookid to append to
     }
 
